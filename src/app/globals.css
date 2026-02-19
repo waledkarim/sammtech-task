@@ -55,21 +55,28 @@
   }
 
   h1 {
-    font-size: var(--text-3xl);
-  }
-
-  h2 {
     font-size: var(--text-2xl);
   }
 
-  h3 {
+  h2 {
     font-size: var(--text-xl);
+  }
+
+  h3 {
+    font-size: var(--text-lg);
   }
 }
 
 @layer utilities {
   .wrapper {
-    width: min(100% - 1rem, 70rem);
+    width: min(100% - 1.5rem, 70rem);
     margin-inline: auto;
+  }
+
+  .products-grid-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    grid-template-rows: repeat(3, auto);
+    gap: 20px;
   }
 }
