@@ -46,20 +46,20 @@ This project uses Nextjs 16 App Router which is inside src directory. There is a
 
 ### Homepage Loading
 
-![Homepage Skeleton Loading](screenshots/skeleton.png)
+![Homepage Skeleton Loading](./public/screenshots/skeleton.png)
 
 ### Homepage
 
-![Homepage](./screenshots/homepage.png)
+![Homepage](./public/screenshots/homepage.png)
 
 ### Product Details Page Skeleton
 
-![Product Details Skeleton](./screenshots/product-details-skeleton.png)
+![Product Details Skeleton](./public/screenshots/product-details-skeleton.png)
 
 ### Product Details Page
 
-![Product Details](./screenshots/product-details.png)
+![Product Details](./public/screenshots/product-details.png)
 
 ### Filter Modal
 
-![Filter Modal](./screenshots/filter-modal.png)
+![Filter Modal](./public/screenshots/filter-modal.png)
