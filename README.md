@@ -32,12 +32,6 @@ npm install
 npm run build
 ```
 
-### Build the project:
-
-```bash
-npm run build
-```
-
 ### Start production server:
 
 ```bash
@@ -46,4 +40,26 @@ npm start
 
 ## Project structure
 
-Thiis project uses Nextjs 16 App Router which is inside src directory. There is also a components folder that has all the reusable components for the project.
+This project uses Nextjs 16 App Router which is inside src directory. There is also a components folder that has all the reusable components for the project.
+
+## Project Screenshots:
+
+### Homepage Loading
+
+![Homepage Skeleton Loading](./screenshots/skeleton.png)
+
+### Homepage
+
+![Homepage](./screenshots/homepage.png)
+
+### Product Details Page Skeleton
+
+![Product Details Skeleton](./screenshots/product-details-skeleton.png)
+
+### Product Details Page
+
+![Product Details](./screenshots/product-details.png)
+
+### Filter Modal
+
+![Filter Modal](./screenshots/filter-modal.png)
