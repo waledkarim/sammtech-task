@@ -44,6 +44,7 @@
       Arial,
       sans-serif;
     line-height: 1.6;
+    font-size: var(--text-base);
   }
 
   h1,
