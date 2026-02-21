@@ -46,7 +46,7 @@ This project uses Nextjs 16 App Router which is inside src directory. There is a
 
 ### Homepage Loading
 
-![Homepage Skeleton Loading](./screenshots/skeleton.png)
+![Homepage Skeleton Loading](screenshots/skeleton.png)
 
 ### Homepage
 
