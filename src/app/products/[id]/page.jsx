@@ -5,6 +5,9 @@ import { notFound } from "next/navigation";
 
 export default async function ProductDetails({ params }) {
   const { id } = await params;
+  if (id > 20) {
+    return notFound();
+  }
   const res = await fetch(`https://fakestoreapi.com/products/${id}`);
   const product = await res.json();
 
