@@ -30,18 +30,24 @@ export default function ProductsList({ products }) {
   }, [products, selectedCategory, price]);
 
   return (
-    <section className="products-grid-container my-3">
-      {filteredProducts.map((product, i) => (
-        <ProductCard
-          key={i}
-          id={product.id}
-          title={product.title}
-          description={product.description}
-          category={product.category}
-          image={product.image}
-          price={product.price}
-        />
-      ))}
+    <>
+      {filteredProducts.length === 0 ? (
+        <h1 className="font- text-center my-14">Could not find any products</h1>
+      ) : (
+        <section className="products-grid-container my-3">
+          {filteredProducts.map((product, i) => (
+            <ProductCard
+              key={i}
+              id={product.id}
+              title={product.title}
+              description={product.description}
+              category={product.category}
+              image={product.image}
+              price={product.price}
+            />
+          ))}
+        </section>
+      )}
       <ProductsFilter
         openModal={openModal}
         setOpenModal={setOpenModal}
@@ -52,6 +58,6 @@ export default function ProductsList({ products }) {
         maxPrice={maxPrice}
         categories={categories}
       />
-    </section>
+    </>
   );
 }
