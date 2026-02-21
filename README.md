@@ -38,6 +38,14 @@ npm run build
 npm start
 ```
 
+## Project Features
+
+- Product Fetching and Skeleton Loading.
+- Product Filtering by price and category.
+- Responsive across mobile, tablet and desktop.
+- Product details page.
+- Error handling and loading state handling.
+
 ## Project structure
 
 This project uses Nextjs 16 App Router which is inside src directory. There is also a components folder that has all the reusable components for the project.
