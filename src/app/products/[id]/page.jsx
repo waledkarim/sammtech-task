@@ -8,7 +8,9 @@ export default async function ProductDetails({ params }) {
   if (id > 20) {
     return notFound();
   }
-  const res = await fetch(`https://fakestoreapi.com/products/${id}`);
+  const res = await fetch(`https://fakestoreapi.com/products/${id}`, {
+    cache: "no-store",
+  });
   if (!res.ok) throw new Error("Could not fetch the product");
 
   const product = await res.json();

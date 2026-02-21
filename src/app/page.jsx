@@ -1,7 +1,9 @@
 import ProductsList from "@/components/ProductsList";
 
 export default async function Home() {
-  const res = await fetch("https://fakestoreapi.com/products");
+  const res = await fetch("https://fakestoreapi.com/products", {
+    cache: "no-store",
+  });
 
   if (!res.ok) {
     throw new Error("Oops, Something went wrong when fetching products.");
