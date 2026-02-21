@@ -1,4 +1,5 @@
 import ProductsList from "@/components/ProductsList";
+export const dynamic = "force-dynamic";
 
 export default async function Home() {
   const res = await fetch("https://fakestoreapi.com/product", {
