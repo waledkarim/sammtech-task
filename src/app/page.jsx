@@ -5,11 +5,15 @@ export default async function Home() {
     cache: "no-store",
   });
 
+  console.log(res);
+
   if (!res.ok) {
     throw new Error("Oops, Something went wrong when fetching products.");
   }
 
   const products = await res.json();
+
+  console.log(products);
 
   return (
     <main className="wrapper">
