@@ -7,15 +7,32 @@ import { useMemo, useState } from "react";
 export default function ProductsList({ products }) {
   const [openModal, setOpenModal] = useState(false);
   const [selectedCategory, setSelectedCategory] = useState("all");
+  const [price, setPrice] = useState(0);
 
+  const maxPrice = useMemo(
+    () => products.reduce((acc, curr) => Math.max(acc, curr.price), 0),
+    [products],
+  );
   const categories = useMemo(() => {
     return ["all", ...new Set(products.map((p) => p.category))];
   }, [products]);
-
   const filteredProducts = useMemo(() => {
-    if (selectedCategory === "all") return products;
-    return products.filter((p) => p.category === selectedCategory);
-  }, [products, selectedCategory]);
+    const predicates = [];
+
+    if (selectedCategory !== "all") {
+      predicates.push((product) => product.category === selectedCategory);
+    }
+
+    if (price !== 0) {
+      predicates.push((product) => product.price <= price);
+    }
+
+    console.log(
+      products.filter((product) => predicates.every((fn) => fn(product))),
+    );
+
+    return products.filter((product) => predicates.every((fn) => fn(product)));
+  }, [products, selectedCategory, price]);
 
   return (
     <section className="products-grid-container my-3">
@@ -66,15 +83,16 @@ export default function ProductsList({ products }) {
                 ))}
               </div>
             </div>
-            <div>
+            <div className="my-5">
               <h3 className="my-2">Filter by Price:</h3>
               <input
                 type="range"
                 min={0}
-                max={100}
+                max={maxPrice}
                 className="slider"
                 name="price"
                 id="price"
+                onChange={(e) => setPrice(e.target.value)}
               />
             </div>
           </div>

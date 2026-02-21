@@ -4,8 +4,6 @@ export default async function Home() {
   const res = await fetch("https://fakestoreapi.com/products");
   const products = await res.json();
 
-  console.log(products.length);
-
   return (
     <main className="wrapper">
       <h1 className="border-b-2 border-b-gray-300 p-2">Products</h1>
