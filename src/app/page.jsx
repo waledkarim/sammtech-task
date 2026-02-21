@@ -1,12 +1,9 @@
 import ProductsList from "@/components/ProductsList";
-export const dynamic = "force-dynamic";
 
 export default async function Home() {
-  const res = await fetch("https://fakestoreapi.com/product", {
+  const res = await fetch("https://fakestoreapi.com/products", {
     cache: "no-store",
   });
-
-  console.log(res);
 
   if (!res.ok) {
     throw new Error("Oops, Something went wrong when fetching products.");
