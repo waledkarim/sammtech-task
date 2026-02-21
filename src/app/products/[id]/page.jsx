@@ -9,6 +9,8 @@ export default async function ProductDetails({ params }) {
     return notFound();
   }
   const res = await fetch(`https://fakestoreapi.com/products/${id}`);
+  if (!res.ok) throw new Error("Could not fetch the product");
+
   const product = await res.json();
 
   return (
