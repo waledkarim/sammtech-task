@@ -9,10 +9,9 @@ export default function ProductsList({ products }) {
   const [selectedCategory, setSelectedCategory] = useState("all");
   const [price, setPrice] = useState(0);
 
-  const maxPrice = useMemo(
-    () => products.reduce((acc, curr) => Math.max(acc, curr.price), 0),
-    [products],
-  );
+  const maxPrice = useMemo(() => {
+    () => products.reduce((acc, curr) => Math.max(acc, curr.price), 0);
+  }, [products]);
   const categories = useMemo(() => {
     return ["all", ...new Set(products.map((p) => p.category))];
   }, [products]);
@@ -26,10 +25,6 @@ export default function ProductsList({ products }) {
     if (price !== 0) {
       predicates.push((product) => product.price <= price);
     }
-
-    console.log(
-      products.filter((product) => predicates.every((fn) => fn(product))),
-    );
 
     return products.filter((product) => predicates.every((fn) => fn(product)));
   }, [products, selectedCategory, price]);
@@ -94,6 +89,11 @@ export default function ProductsList({ products }) {
                 id="price"
                 onChange={(e) => setPrice(e.target.value)}
               />
+              <p className="text-center font-medium border rounded-md py-1 px-2">
+                <span className="text-base">
+                  {price === 0 ? `Select a price` : `BDT ${price}`}
+                </span>
+              </p>
             </div>
           </div>
         </div>
