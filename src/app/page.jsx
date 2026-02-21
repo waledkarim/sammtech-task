@@ -1,7 +1,7 @@
 import ProductsList from "@/components/ProductsList";
 
 export default async function Home() {
-  const res = await fetch("https://fakestoreapi.com/products", {
+  const res = await fetch("https://fakestoreapi.com/product", {
     cache: "no-store",
   });
 
@@ -12,8 +12,6 @@ export default async function Home() {
   }
 
   const products = await res.json();
-
-  console.log(products);
 
   return (
     <main className="wrapper">
