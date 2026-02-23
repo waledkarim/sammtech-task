@@ -1,7 +1,7 @@
 import ProductsContainer from "./ProductsContainer";
 
 export default async function ProductsList() {
-  const res = await fetch("https://dummyjson.com/products", {
+  const res = await fetch("https://dummyjson.com/products?limit=194", {
     cache: "no-store",
   });
 
@@ -11,5 +11,7 @@ export default async function ProductsList() {
 
   const { products } = await res.json();
 
-  return <ProductsContainer products={products} />;
+  console.log(products.length);
+
+  // return <ProductsContainer products={products} />;
 }
