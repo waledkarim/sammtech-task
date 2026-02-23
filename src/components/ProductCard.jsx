@@ -1,13 +1,17 @@
+import Image from "next/image";
 import Link from "next/link";
 
 export default function ProductCard(props) {
   return (
     <article className="border-3 border-gray-200 rounded-md px-3 py-4 grid grid-rows-subgrid row-span-3 gap-0">
-      <img
-        className="w-full h-40 object-contain border border-gray-200 p-3 rounded-md"
-        src={props.images[0]}
-        alt="Product Image"
-      />
+      <div className="relative w-full h-40 border border-gray-200 p-3 rounded-md">
+        <Image
+          className="object-contain"
+          src={props.images[0]}
+          alt="Product Image"
+          fill
+        />
+      </div>
       <h3 className="py-3">{props.title}</h3>
       <div className="flex justify-between items-center">
         <p className="text-xl font-black text-gray-500">
