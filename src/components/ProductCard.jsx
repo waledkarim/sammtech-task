@@ -12,9 +12,9 @@ export default function ProductCard(props) {
           fill
         />
       </div>
-      <h3 className="py-3">{props.title}</h3>
+      <h3 className="py-3 text-zinc-600">{props.title}</h3>
       <div className="flex justify-between items-center">
-        <p className="text-xl font-black text-gray-500">
+        <p className="text-xl font-black">
           <span className="text-base">BDT</span> {""}
           {props.price}
         </p>
