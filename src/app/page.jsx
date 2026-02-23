@@ -1,20 +1,14 @@
 import ProductsList from "@/components/ProductsList";
+import { Suspense } from "react";
+import Loading from "./loading";
 
 export default async function Home() {
-  const res = await fetch("https://fakestoreapi.com/products", {
-    cache: "no-store",
-  });
-
-  if (!res.ok) {
-    throw new Error("Oops, Something went wrong when fetching products.");
-  }
-
-  const products = await res.json();
-
   return (
     <main className="wrapper">
       <h1 className="border-b-2 border-b-gray-300 p-2">Products</h1>
-      <ProductsList products={products} />
+      <Suspense fallback={<Loading />}>
+        <ProductsList />
+      </Suspense>
     </main>
   );
 }

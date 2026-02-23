@@ -1,9 +1,6 @@
 export default function Loading() {
   return (
     <main className="wrapper my-6 space-y-6">
-      {/* Page title skeleton */}
-      <div className="h-8 w-40 rounded bg-gray-200 animate-pulse" />
-
       {/* Grid skeleton */}
       <div className="products-grid-container my-3">
         {Array.from({ length: 9 }).map((_, i) => (
