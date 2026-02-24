@@ -1,19 +1,21 @@
 import { CircleX, Funnel } from "lucide-react";
 
 export default function ProductsFilter(props) {
+  const [openModal, setOpenModal] = useState(false);
+
   return (
     <>
       <button
-        onClick={() => props.setOpenModal(true)}
+        onClick={() => setOpenModal(true)}
         className="fixed right-5 bottom-5 rounded-full bg-black p-3 border border-gray-300"
       >
         <Funnel size={30} color="white" />
       </button>
-      {props.openModal && (
+      {openModal && (
         <div className="fixed inset-0 bg-black/50 backdrop-blur-[1px] z-50">
           <div className="absolute right-0 left-0 top-1/3 mx-auto bg-white rounded-md p-3 max-w-96">
             <div className="flex justify-end">
-              <button onClick={() => props.setOpenModal(false)}>
+              <button onClick={() => setOpenModal(false)}>
                 <CircleX size={30} color="red" />
               </button>
             </div>

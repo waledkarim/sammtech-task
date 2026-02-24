@@ -2,61 +2,54 @@
 
 import { useMemo, useState } from "react";
 import ProductCard from "./ProductCard";
-import ProductsFilter from "./ProductsFilter";
 
 export default function ProductsContainer({ products }) {
-  const [openModal, setOpenModal] = useState(false);
-  const [selectedCategory, setSelectedCategory] = useState("all");
-  const [price, setPrice] = useState(0);
-  const maxPrice = useMemo(() => {
-    () => products.reduce((acc, curr) => Math.max(acc, curr.price), 0);
-  }, [products]);
-  const categories = useMemo(() => {
-    return ["all", ...new Set(products.map((p) => p.category))];
-  }, [products]);
-  const filteredProducts = useMemo(() => {
-    const predicates = [];
-
-    if (selectedCategory !== "all") {
-      predicates.push((product) => product.category === selectedCategory);
+  const [page, setPage] = useState(1);
+  const numberOfItemsPerPage = 30;
+  const totalProducts = products.length;
+  const totalNumberOfPages = useMemo(() => {
+    const divisions = totalProducts / numberOfItemsPerPage;
+    const isExact = Number.isInteger(divisions);
+    if (!isExact) {
+      return divisions + 1;
     }
+    return divisions;
+  }, [products]);
+  const startIndex = (page - 1) * numberOfItemsPerPage;
+  const lastIndex = startIndex + numberOfItemsPerPage;
+  const slicedProducts = products.slice(startIndex, lastIndex);
 
-    if (price !== 0) {
-      predicates.push((product) => product.price <= price);
-    }
-
-    return products.filter((product) => predicates.every((fn) => fn(product)));
-  }, [products, selectedCategory, price]);
+  console.log("Products: ", slicedProducts);
 
   return (
     <>
-      {filteredProducts.length === 0 ? (
-        <h1 className="font- text-center my-14">Could not find any products</h1>
-      ) : (
-        <section className="products-grid-container my-3">
-          {filteredProducts.map((product, i) => (
-            <ProductCard
+      <div className="products-grid-container my-3">
+        {slicedProducts.map((product, i) => (
+          <ProductCard
+            key={i}
+            id={product.id}
+            title={product.title}
+            description={product.description}
+            category={product.category}
+            images={product.images}
+            price={product.price}
+          />
+        ))}
+      </div>
+
+      <div className="p-3 flex justify-center items-center gap-3">
+        {Array.from({ length: totalNumberOfPages }, (_, i) => i + 1).map(
+          (pageNo, i) => (
+            <button
               key={i}
-              id={product.id}
-              title={product.title}
-              description={product.description}
-              category={product.category}
-              images={product.images}
-              price={product.price}
-            />
-          ))}
-        </section>
-      )}
-      <ProductsFilter
-        openModal={openModal}
-        setOpenModal={setOpenModal}
-        selectedCategory={selectedCategory}
-        setSelectedCategory={setSelectedCategory}
-        price={price}
-        setPrice={setPrice}
-        maxPrice={maxPrice}
-        categories={categories}
-      />
+              onClick={() => setPage(pageNo)}
+              className={`h-10 w-10 font-bold bg-black text-white rounded-full ${page === pageNo ? "bg-black/50" : ""}`}
+            >
+              {pageNo}
+            </button>
+          ),
+        )}
+      </div>
     </>
   );
 }

@@ -11,7 +11,9 @@ export default async function ProductsList() {
 
   const { products } = await res.json();
 
-  console.log(products.length);
-
-  // return <ProductsContainer products={products} />;
+  return (
+    <section className="relative">
+      <ProductsContainer products={products} />
+    </section>
+  );
 }
