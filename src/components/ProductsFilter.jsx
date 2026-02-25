@@ -21,7 +21,7 @@ export default function ProductsFilter(props) {
     <>
       <button
         onClick={() => setOpenModal(true)}
-        className="fixed right-5 bottom-5 rounded-full bg-black p-3 border border-gray-300"
+        className="fixed right-5 bottom-15 rounded-full bg-black p-3 border border-gray-300"
       >
         <Funnel size={30} color="white" />
       </button>
@@ -64,6 +64,7 @@ export default function ProductsFilter(props) {
                 className="slider"
                 name="price"
                 id="price"
+                value={props.price}
                 onChange={(e) => props.setPrice(e.target.value)}
               />
               <p className="text-center font-medium border rounded-md py-1 px-2">
