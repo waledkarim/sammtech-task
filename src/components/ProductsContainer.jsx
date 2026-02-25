@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import ProductCard from "./ProductCard";
 import ProductsFilter from "./ProductsFilter";
 
@@ -24,18 +24,8 @@ export default function ProductsContainer({ products }) {
     return products.filter((product) => predicates.every((fn) => fn(product)));
   }, [products, category, price]);
 
-  const startIndex = useMemo(() => {
-    if ((price !== 0 || category !== "all") && page !== 1) {
-      setPage(1);
-    }
-    return (page - 1) * numberOfItemsPerPage;
-  }, [filteredProducts, page]);
-  const lastIndex = useMemo(() => {
-    if ((price !== 0 || category !== "all") && page !== 1) {
-      setPage(1);
-    }
-    return startIndex + numberOfItemsPerPage;
-  }, [filteredProducts, page]);
+  const startIndex = (page - 1) * numberOfItemsPerPage;
+  const lastIndex = startIndex + numberOfItemsPerPage;
 
   const totalProducts = filteredProducts.length;
   const totalNumberOfPages = useMemo(() => {
@@ -48,6 +38,10 @@ export default function ProductsContainer({ products }) {
   }, [filteredProducts]);
 
   const slicedProducts = filteredProducts.slice(startIndex, lastIndex);
+
+  useEffect(() => {
+    setPage(1);
+  }, [filteredProducts]);
 
   console.log("Filtered products: ", filteredProducts);
   console.log("Sliced products: ", slicedProducts);
