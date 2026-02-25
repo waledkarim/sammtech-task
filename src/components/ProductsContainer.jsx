@@ -10,9 +10,6 @@ export default function ProductsContainer({ products }) {
   const [price, setPrice] = useState(0);
   const numberOfItemsPerPage = 30;
 
-  const startIndex = (page - 1) * numberOfItemsPerPage;
-  const lastIndex = startIndex + numberOfItemsPerPage;
-
   const filteredProducts = useMemo(() => {
     const predicates = [];
 
@@ -27,6 +24,19 @@ export default function ProductsContainer({ products }) {
     return products.filter((product) => predicates.every((fn) => fn(product)));
   }, [products, category, price]);
 
+  const startIndex = useMemo(() => {
+    if ((price !== 0 || category !== "all") && page !== 1) {
+      setPage(1);
+    }
+    return (page - 1) * numberOfItemsPerPage;
+  }, [filteredProducts, page]);
+  const lastIndex = useMemo(() => {
+    if ((price !== 0 || category !== "all") && page !== 1) {
+      setPage(1);
+    }
+    return startIndex + numberOfItemsPerPage;
+  }, [filteredProducts, page]);
+
   const totalProducts = filteredProducts.length;
   const totalNumberOfPages = useMemo(() => {
     const divisions = totalProducts / numberOfItemsPerPage;
@@ -38,37 +48,48 @@ export default function ProductsContainer({ products }) {
   }, [filteredProducts]);
 
   const slicedProducts = filteredProducts.slice(startIndex, lastIndex);
-  console.log("Products: ", filteredProducts);
+
+  console.log("Filtered products: ", filteredProducts);
+  console.log("Sliced products: ", slicedProducts);
+  console.log("Start Index: ", startIndex);
+  console.log("Last Index: ", lastIndex);
 
   return (
     <>
-      <div className="products-grid-container my-3">
-        {slicedProducts.map((product, i) => (
-          <ProductCard
-            key={i}
-            id={product.id}
-            title={product.title}
-            description={product.description}
-            category={product.category}
-            images={product.images}
-            price={product.price}
-          />
-        ))}
-      </div>
-
-      <div className="p-3 flex justify-center items-center gap-3">
-        {Array.from({ length: totalNumberOfPages }, (_, i) => i + 1).map(
-          (pageNo, i) => (
-            <button
-              key={i}
-              onClick={() => setPage(pageNo)}
-              className={`h-10 w-10 font-bold bg-black text-white rounded-full ${page === pageNo ? "bg-black/50" : ""}`}
-            >
-              {pageNo}
-            </button>
-          ),
-        )}
-      </div>
+      {filteredProducts.length === 0 ? (
+        <h1 className="font-bold text-center my-14">
+          Could not find any products
+        </h1>
+      ) : (
+        <div>
+          <div className="products-grid-container my-3">
+            {slicedProducts.map((product, i) => (
+              <ProductCard
+                key={i}
+                id={product.id}
+                title={product.title}
+                description={product.description}
+                category={product.category}
+                images={product.images}
+                price={product.price}
+              />
+            ))}
+          </div>
+          <div className="p-3 flex justify-center items-center gap-3">
+            {Array.from({ length: totalNumberOfPages }, (_, i) => i + 1).map(
+              (pageNo, i) => (
+                <button
+                  key={i}
+                  onClick={() => setPage(pageNo)}
+                  className={`h-10 w-10 font-bold bg-black text-white rounded-full ${page === pageNo ? "bg-black/50" : ""}`}
+                >
+                  {pageNo}
+                </button>
+              ),
+            )}
+          </div>
+        </div>
+      )}
       <ProductsFilter
         products={products}
         category={category}
