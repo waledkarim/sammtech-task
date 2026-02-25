@@ -15,7 +15,7 @@ export default function ProductsFilter(props) {
     return props.products.reduce((acc, curr) => Math.max(acc, curr.price), 0);
   }, [props.products]);
 
-  console.log("Max Price: ", maxPrice);
+  console.log("Category: ", props.category);
 
   return (
     <>
@@ -46,12 +46,10 @@ export default function ProductsFilter(props) {
                       className="hidden"
                       type="radio"
                       name="category"
-                      id={props.category}
-                      value={props.category}
+                      id={category}
+                      value={category}
                       checked={props.category === category}
-                      onChange={(e) =>
-                        props.setSelectedCategory(e.target.value)
-                      }
+                      onChange={(e) => props.setCategory(e.target.value)}
                     />
                   </label>
                 ))}

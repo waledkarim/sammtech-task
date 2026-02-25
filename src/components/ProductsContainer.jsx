@@ -6,8 +6,28 @@ import ProductsFilter from "./ProductsFilter";
 
 export default function ProductsContainer({ products }) {
   const [page, setPage] = useState(1);
+  const [category, setCategory] = useState("all");
+  const [price, setPrice] = useState(0);
   const numberOfItemsPerPage = 30;
-  const totalProducts = products.length;
+
+  const startIndex = (page - 1) * numberOfItemsPerPage;
+  const lastIndex = startIndex + numberOfItemsPerPage;
+
+  const filteredProducts = useMemo(() => {
+    const predicates = [];
+
+    if (category !== "all") {
+      predicates.push((product) => category === product.category);
+    }
+
+    if (price !== 0) {
+      predicates.push((product) => product.price <= price);
+    }
+
+    return products.filter((product) => predicates.every((fn) => fn(product)));
+  }, [products, category, price]);
+
+  const totalProducts = filteredProducts.length;
   const totalNumberOfPages = useMemo(() => {
     const divisions = totalProducts / numberOfItemsPerPage;
     const isExact = Number.isInteger(divisions);
@@ -15,14 +35,10 @@ export default function ProductsContainer({ products }) {
       return divisions + 1;
     }
     return divisions;
-  }, [products]);
-  const startIndex = (page - 1) * numberOfItemsPerPage;
-  const lastIndex = startIndex + numberOfItemsPerPage;
-  const [category, setCatgeory] = useState("all");
-  const [price, setPrice] = useState(0);
+  }, [filteredProducts]);
 
-  const slicedProducts = products.slice(startIndex, lastIndex);
-  console.log("Products: ", slicedProducts);
+  const slicedProducts = filteredProducts.slice(startIndex, lastIndex);
+  console.log("Products: ", filteredProducts);
 
   return (
     <>
@@ -56,7 +72,7 @@ export default function ProductsContainer({ products }) {
       <ProductsFilter
         products={products}
         category={category}
-        setCatgeory={setCatgeory}
+        setCategory={setCategory}
         price={price}
         setPrice={setPrice}
       />
