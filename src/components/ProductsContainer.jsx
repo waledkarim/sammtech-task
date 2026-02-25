@@ -43,11 +43,6 @@ export default function ProductsContainer({ products }) {
     setPage(1);
   }, [filteredProducts]);
 
-  console.log("Filtered products: ", filteredProducts);
-  console.log("Sliced products: ", slicedProducts);
-  console.log("Start Index: ", startIndex);
-  console.log("Last Index: ", lastIndex);
-
   return (
     <>
       {filteredProducts.length === 0 ? (
