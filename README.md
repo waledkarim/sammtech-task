@@ -1,15 +1,6 @@
-## ⚠️ Important Notice About Production Deployment
+## Important Notice About Production Deployment
 
-This project uses the public **FakeStore API**:
-
-https://fakestoreapi.com/
-
-When deployed on Vercel (or other serverless platforms), the API may return:
-
-403 Forbidden
-cf-mitigated: challenge
-
-This happens because FakeStore API is protected by **Cloudflare bot protection**, which blocks requests coming from cloud hosting providers (like Vercel).
+The Product fetching API has been changed to DummyJSON API. Now, the products are being fetched in deployment and the app is now production-ready.
 
 ## 🧪 How To Run Locally
 
