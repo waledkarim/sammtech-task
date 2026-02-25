@@ -10,7 +10,6 @@ export default async function ProductsList() {
   }
 
   const { products } = await res.json();
-
   return (
     <section className="relative">
       <ProductsContainer products={products} />

@@ -1,7 +1,21 @@
+"use client";
+
 import { CircleX, Funnel } from "lucide-react";
+import { useMemo, useState } from "react";
 
 export default function ProductsFilter(props) {
   const [openModal, setOpenModal] = useState(false);
+  const categories = useMemo(() => {
+    return [
+      "all",
+      ...new Set(props.products.map((product) => product.category)),
+    ];
+  }, [props.products]);
+  const maxPrice = useMemo(() => {
+    return props.products.reduce((acc, curr) => Math.max(acc, curr.price), 0);
+  }, [props.products]);
+
+  console.log("Max Price: ", maxPrice);
 
   return (
     <>
@@ -13,7 +27,7 @@ export default function ProductsFilter(props) {
       </button>
       {openModal && (
         <div className="fixed inset-0 bg-black/50 backdrop-blur-[1px] z-50">
-          <div className="absolute right-0 left-0 top-1/3 mx-auto bg-white rounded-md p-3 max-w-96">
+          <div className="absolute top-1/4 right-0 left-0 mx-auto bg-white rounded-md p-3 max-w-130">
             <div className="flex justify-end">
               <button onClick={() => setOpenModal(false)}>
                 <CircleX size={30} color="red" />
@@ -21,20 +35,20 @@ export default function ProductsFilter(props) {
             </div>
             <div className="my-5">
               <h3 className="my-2">Filter by Category:</h3>
-              <div className="flex gap-2 flex-wrap items-center">
-                {props.categories.map((category, i) => (
+              <div className="flex gap-2 items-center overflow-x-scroll">
+                {categories.map((category, i) => (
                   <label
                     key={i}
-                    className="has-checked:bg-black has-checked:text-white p-2 rounded-md border border-gray-200 cursor-pointer"
+                    className="has-checked:bg-black has-checked:text-white p-2 rounded-[100vw] border border-gray-200 cursor-pointer inline-block whitespace-nowrap w-fit"
                   >
                     {category.toUpperCase()}
                     <input
                       className="hidden"
                       type="radio"
                       name="category"
-                      id={category}
-                      value={category}
-                      checked={props.selectedCategory === category}
+                      id={props.category}
+                      value={props.category}
+                      checked={props.category === category}
                       onChange={(e) =>
                         props.setSelectedCategory(e.target.value)
                       }
@@ -48,7 +62,7 @@ export default function ProductsFilter(props) {
               <input
                 type="range"
                 min={0}
-                max={props.maxPrice}
+                max={maxPrice}
                 className="slider"
                 name="price"
                 id="price"

@@ -2,6 +2,7 @@
 
 import { useMemo, useState } from "react";
 import ProductCard from "./ProductCard";
+import ProductsFilter from "./ProductsFilter";
 
 export default function ProductsContainer({ products }) {
   const [page, setPage] = useState(1);
@@ -17,8 +18,10 @@ export default function ProductsContainer({ products }) {
   }, [products]);
   const startIndex = (page - 1) * numberOfItemsPerPage;
   const lastIndex = startIndex + numberOfItemsPerPage;
-  const slicedProducts = products.slice(startIndex, lastIndex);
+  const [category, setCatgeory] = useState("all");
+  const [price, setPrice] = useState(0);
 
+  const slicedProducts = products.slice(startIndex, lastIndex);
   console.log("Products: ", slicedProducts);
 
   return (
@@ -50,6 +53,13 @@ export default function ProductsContainer({ products }) {
           ),
         )}
       </div>
+      <ProductsFilter
+        products={products}
+        category={category}
+        setCatgeory={setCatgeory}
+        price={price}
+        setPrice={setPrice}
+      />
     </>
   );
 }
