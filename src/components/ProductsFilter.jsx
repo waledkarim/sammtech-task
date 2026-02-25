@@ -15,8 +15,6 @@ export default function ProductsFilter(props) {
     return props.products.reduce((acc, curr) => Math.max(acc, curr.price), 0);
   }, [props.products]);
 
-  console.log("Category: ", props.category);
-
   return (
     <>
       <button
