@@ -8,7 +8,7 @@ export default async function ProductDetails({ params }) {
   if (id > 20) {
     return notFound();
   }
-  const res = await fetch(`https://fakestoreapi.com/products/${id}`, {
+  const res = await fetch(`https://dummyjson.com/products/${id}`, {
     cache: "no-store",
   });
   if (!res.ok) throw new Error("Could not fetch the product");
@@ -26,7 +26,7 @@ export default async function ProductDetails({ params }) {
         <div className="rounded-xl border bg-white p-4">
           <div className="relative aspect-square w-full">
             <Image
-              src={product.image}
+              src={product.images[0]}
               alt={product.title}
               fill
               className="object-contain"

@@ -43,6 +43,11 @@ export default function ProductsContainer({ products }) {
     setPage(1);
   }, [filteredProducts]);
 
+  function handlePageNoClick(pageNo) {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+    setPage(pageNo);
+  }
+
   return (
     <>
       {filteredProducts.length === 0 ? (
@@ -66,10 +71,10 @@ export default function ProductsContainer({ products }) {
           </div>
           <div className="p-3 flex justify-center items-center gap-3">
             {Array.from({ length: totalNumberOfPages }, (_, i) => i + 1).map(
-              (pageNo, i) => (
+              (pageNo) => (
                 <button
-                  key={i}
-                  onClick={() => setPage(pageNo)}
+                  key={pageNo}
+                  onClick={() => handlePageNoClick(pageNo)}
                   className={`h-10 w-10 font-bold bg-black text-white rounded-full ${page === pageNo ? "bg-black/50" : ""}`}
                 >
                   {pageNo}
